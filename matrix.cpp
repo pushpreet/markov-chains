@@ -1,47 +1,62 @@
 #include "matrix.h"
 
-template <class type>
-matrix<type>::matrix(void)
+//using namespace std;
+
+template <class T>
+matrix<T>::matrix(void)
 {
-	**mat = NULL;
-	rows = 0;
-	cols = 0;
+
+	mat = NULL;
 }
 
-template <class type>
-matrix<type>::matrix(type _mat[][SIZE], int _rows, int _cols )
+template <class T>
+matrix<T>::matrix(vector<T> _mat)
 {
-	rows = _rows;
-	cols = _cols;
-	
-	mat = new int *[_rows];
+	mat.push_back( vector<T>() );
 
-	for (int i = 0; i < _cols; i++)
-	{
-		mat[i] = new int[_cols];
-	}
-
-	for (int i = 0; i < _rows; i++)
-	{
-		for (int j = 0; j < _cols; j++)
-		{
-			mat[i][j] = _mat[i][j];
-		}
-	}
+	mat[0] = _mat;
 }
 
-template <class type>
-matrix<type>::~matrix(void)
+template <class T>
+matrix<T>::matrix(vector<vector<T> > _mat)
 {
-	for( int i = 0 ; i < rows ; i++ )
-	{
-		delete [] mat[i];   
-	}
-	delete [] mat;
+	mat = _mat;
 }
 
-template <class type>
-type matrix<type> :: operator( ) ( unsigned int _row, unsigned int _col )
+template <class T>
+matrix<T>::~matrix(void)
+{
+}
+
+template <class T>
+T matrix<T> :: operator( ) ( unsigned int _row, unsigned int _col )
 {
 	return mat[_row][_col];
+}
+
+template <class T>
+matrix<T> matrix<T> :: operator( ) ( unsigned int _row )
+{
+	matrix<T> rowMatrix( mat[_row] );
+	
+	return rowMatrix;
+}
+
+template <class T>
+vector<T> matrix<T> :: getRowVector( unsigned int _row )
+{
+	return mat[_row];
+}
+
+template <class T>
+vector<T> matrix<T> :: getColVector( unsigned int _col )
+{
+	vector<vector<T> > colVector( mat.size() );
+
+	for (int i = 0; i < mat.size(); i++)
+	{
+		colVector[i] = mat[i][_col];
+	}
+
+
 }

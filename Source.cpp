@@ -18,10 +18,5 @@ int main( )
 		}
 	}
 
-	matrix<int> x( data, 1, 0);
-
-	cout<<x(0,0)<<" "<<x(1,1);
-
-
 	return 1;
 }
