@@ -23,26 +23,46 @@ using namespace std;
 template <class T>				// template class to store matrices of different types
 class matrix
 {
-private:
-	vector<vector<T> > mat;						// pointer to store the address of the 2D array
+protected:
+	vector< vector<T> > mat;						// 2D vector to store the address of the 2D array
 public:
 	// constructors
-	matrix(void);
-	matrix(vector<T> _mat);
-	matrix(vector<vector<T> > _mat);
+	matrix ( void );
+	matrix ( int _rows, int _cols );
+	matrix ( vector<T> _mat );
+	matrix ( vector< vector<T> > _mat );
+	//matrix ( int _rows, int _cols, T values[] );
 	
 	// destructors
 	~matrix(void);
 
 	// access functions
 	matrix<T> operator( ) ( unsigned int _row );
-	T operator( ) ( unsigned int _row, unsigned int _col );
+	T operator( ) ( unsigned int _row, unsigned int _col ) const;
+	T & operator( ) ( unsigned int _row, unsigned int _col );
 	
-	vector<T> getRowVector( unsigned int _row );
-	vector<T> getColVector( unsigned int _col );
+	vector<T> getRowVector ( unsigned int _row );
+	vector<T> getColVector ( unsigned int _col );
 
-	matrix<T> getRow( unsigned int _row );
-	matrix<T> getCol( unsigned int _col );
+	matrix<T> getRow ( unsigned int _row );
+	matrix<T> getCol ( unsigned int _col );
+
+	// modifiers
+	matrix<T> addRow ( );
+	matrix<T> addCol ( );
+
+	// capacity
+	unsigned int numRows( );
+	unsigned int numCols( );
+
+	// matrix arithematic
+	matrix<T> operator+ ( matrix<T> _mat );
+	matrix<T> operator- ( matrix<T> _mat );
+	matrix<T> operator* ( matrix<T> _mat );
+	matrix<T> operator= ( matrix<T> _mat );
+
+	// transformations
+	matrix<T> transpose ( );
 };
 
 /*
