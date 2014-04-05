@@ -22,26 +22,24 @@
 #define SOUTH	1
 #define EAST	2
 #define WEST	3
-#define UP		4
-#define DOWN	5
 
 class walker
 {
 protected:
 	cartesian position;				// structure to store current position of the walker
 	short unsigned int stepSize;	// size of step to take at once
-	char heading;					// direction in which the walker is headind / looking
+	char heading;					// direction in which the walker is heading / looking
 
 public:
 	// constructors and destructors
-	walker(void);
-	walker( cartesian _position, short unsigned int _stepSize = 1, char _heading = NORTH );
-	~walker(void);
+	walker ( void );
+	walker ( cartesian _position, short unsigned int _stepSize = 1, char _heading = NORTH );
+	~walker ( void );
 
-	cartesian step( unsigned int _noOfSteps = 1 );
-	cartesian step( unsigned int _noOfSteps, char _direction );
+	cartesian step ( unsigned int _noOfSteps = 1 );
+	cartesian step ( unsigned int _noOfSteps, char _direction );
 
-	cartesian getPosition( );
+	cartesian getPosition ( );
 };
 
 /*

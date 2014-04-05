@@ -1,5 +1,5 @@
-#include <iostream>
-#include <vector>
+#pragma once
+
 #include "matrix.h"
 
 using namespace std;
@@ -7,8 +7,7 @@ using namespace std;
 template <class T>
 matrix<T>::matrix(void)
 {
-	mat = NULL;
-};
+}
 
 template <class T>
 matrix<T>::matrix(int _rows, int _cols)
@@ -123,9 +122,9 @@ matrix<T> matrix<T> :: operator+ ( matrix<T> _mat )
 		return resultantMatrix;
 	}
 
-	for (int i = 0; i < numRows( ); i++)
+	for (unsigned int i = 0; i < numRows( ); i++)
 	{
-		for (int j = 0; j < numCols( ); j++)
+		for (unsigned int j = 0; j < numCols( ); j++)
 		{
 			resultantMatrix(i ,j) = mat[i][j] + _mat(i, j);
 		}
@@ -167,13 +166,13 @@ matrix<T> matrix<T> :: operator* ( matrix<T> _mat )
 		return resultantMatrix;
 	}
 
-	for (int i = 0; i < numRows( ); i++)
+	for (unsigned int i = 0; i < numRows( ); i++)
 	{
-		for (int j = 0; j < _mat.numCols( ); j++)
+		for (unsigned int j = 0; j < _mat.numCols( ); j++)
 		{
 			resultantMatrix(i, j) = 0;
 
-			for (int k = 0; k < numCols( ); k++)
+			for (unsigned int k = 0; k < numCols( ); k++)
 			{
 				resultantMatrix(i, j) += mat[i][k] * _mat(k, j);
 			}
@@ -188,11 +187,11 @@ matrix<T> matrix<T> :: operator= ( matrix<T> _mat )
 {
 	mat.clear( );
 	
-	for (int i = 0; i < _mat.numRows( ); i++)
+	for (unsigned int i = 0; i < _mat.numRows( ); i++)
 	{
 		mat.push_back( vector<T>() );
 
-		for (int j = 0; j < _mat.numCols( ); j++)
+		for (unsigned int j = 0; j < _mat.numCols( ); j++)
 		{
 			mat[i].push_back( _mat(i, j) );
 		}
@@ -224,7 +223,7 @@ matrix<T> matrix<T> :: addRow( )
 
 	mat.push_back( vector<T>() );
 
-	for (int i = 0; i < numCols( ); i++)
+	for (unsigned int i = 0; i < numCols( ); i++)
 	{
 		mat[newRow].push_back( 0 );
 	}
@@ -236,9 +235,28 @@ matrix<T> matrix<T> :: addRow( )
 template <class T>
 matrix<T> matrix<T> :: addCol( )
 {
-	for (int i = 0; i < numRows( ); i++)
+	for (unsigned int i = 0; i < numRows( ); i++)
 	{
 		mat[i].push_back( 0 );
+	}
+
+	return *this;
+}
+
+template <class T>
+matrix<T> matrix<T> :: assign ( int _rows, int _cols, T _values[] )
+{
+	mat.clear( ); 
+	unsigned int k = 0;
+
+	for (int i = 0; i < _rows; i++)
+	{
+		mat.push_back( vector<T>() );
+
+		for (int j = 0; j < _cols; j++)
+		{
+			mat[i].push_back( _values[k++] );
+		}
 	}
 
 	return *this;

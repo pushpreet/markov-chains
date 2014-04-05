@@ -4,7 +4,6 @@ walker::walker(void)
 {
 	position.x = 0;
 	position.y = 0;
-	position.z = 0;
 	stepSize = 1;
 	heading = NORTH;
 }
@@ -36,12 +35,6 @@ cartesian walker::step( unsigned int _noOfSteps )
 		case WEST:
 			position.y -= stepSize * _noOfSteps;
 			break;
-		case UP:
-			position.z += stepSize * _noOfSteps;
-			break;
-		case DOWN:
-			position.z -= stepSize * _noOfSteps;
-			break;
 
 		default:
 			//TODO:Exception Handling
@@ -67,12 +60,6 @@ cartesian walker::step( unsigned int _noOfSteps, char _direction )
 			break;
 		case WEST:
 			position.y -= stepSize * _noOfSteps;
-			break;
-		case UP:
-			position.z += stepSize * _noOfSteps;
-			break;
-		case DOWN:
-			position.z -= stepSize * _noOfSteps;
 			break;
 
 		default:

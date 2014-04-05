@@ -11,27 +11,42 @@
 
 	Dependencies:			Depends On: cartesian.h
 										walker.h
+										matrix.h
 							Used In: 	Project: markov_chains - Main.cpp
 
 */
 
 #pragma once
 
+#include <stdlib.h>
+#include <iostream>
 #include "walker.h"
+#include "matrix.h"
+#include "grid.h"
 
-#define THREEDIMENSIONAL 0
+class grid;
 
 class randomWalker :
 	public walker
 {
+private:
+	static grid space;
+	static unsigned int noOfWalkers;
+	const int identifier;
+	matrix<float> transitionMatrix;
+		
 public:
 	// constructors and destructors
-	randomWalker(void);
-	randomWalker::randomWalker( cartesian _position, short unsigned int _stepSize, char _heading );
-	~randomWalker(void);
+	randomWalker ( void );
+	randomWalker ( randomWalker &_randomWalker );
+	randomWalker ( cartesian _position, short unsigned int _stepSize, char _heading );
+	randomWalker ( cartesian _position, short unsigned int _stepSize, char _heading, matrix<float> _transitionMatrix );
+	~randomWalker ( void );
 
-	cartesian step( unsigned int _noOfSteps = 1 );
-	cartesian predictStep( randomWalker &_ramdomWalker, unsigned int _noOfSteps = 1 );
+	int getIdentifier( );
+
+	cartesian step ( unsigned int _noOfSteps = 1 );
+	cartesian predictStep ( randomWalker &_randomWalker, unsigned int _noOfSteps = 1 );
 };
 
 /*

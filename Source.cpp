@@ -3,46 +3,45 @@
 #include <time.h>
 #include <stdlib.h>
 #include "matrix.h"
-#include "matrix.cpp"
-#include "markovMatrix.h"
-#include "markovMatrix.cpp"
+#include "grid.h"
 
 using namespace std;
 
 int main( )
 {
-	matrix<int> test( 1, 3),test1( 1, 3),add( 3, 3);
+	cartesian walkerPos, walker2Pos;
+	walkerPos.x = 50;
+	walkerPos.y = 50;
 
-	cout<<endl;
+	walker2Pos.x = 60;
+	walker2Pos.y = 60;
 
-	for (int i = 0; i < test.numRows( ); i++)
-	{
-		for (int j = 0; j < test.numCols( ); j++)
-		{
-			test(i,j) = i*j;
-			test1(i,j) = i+j;
-		}
 
-		cout<<endl;
-	}
+	matrix<float> transitionMatrix;
 
-	add = test + test1;
-
-	add.addRow( );
-	add.addRow( );
-	add.addCol( );
+	srand( time(NULL) );
 	
-	
-	for (int i = 0; i < add.numRows( ); i++)
+	float values[81] = {0.33, 0.33,    0, 0.33,    0,    0,    0,    0,    0,
+						0.25, 0.25, 0.25,    0, 0.25,    0,    0,    0,    0,
+						   0, 0.33, 0.33,    0,    0, 0.33,    0,    0,    0,
+						0.25,    0,    0, 0.25, 0.25,    0, 0.25,    0,    0,
+						   0, 0.2,     0,  0.2,  0.2,  0.2,    0,  0.2,    0,
+						   0,    0, 0.25,    0,	0.25, 0.25,    0,    0, 0.25,
+						   0,    0,    0, 0.33,    0,    0, 0.33, 0.33,    0,
+						   0,    0,    0,    0, 0.25,    0, 0.25, 0.25, 0.25,
+						   0,    0,    0,    0,    0, 0.33,    0, 0.33, 0.33};
+
+	transitionMatrix.assign( 9, 9, values );
+
+	randomWalker test( walkerPos, 1, NORTH, transitionMatrix ), test2(walker2Pos, 1, NORTH, transitionMatrix);
+
+	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < add.numCols( ); j++)
-		{
-			cout<< add(i,j)<<" ";
-		}
+		walkerPos = test.predictStep( test2 );
 
-		cout<<endl;
+		cout<<walkerPos.x<<" "<<walkerPos.y<<endl;
 	}
-
+	
 	getchar( );
 	return 0;
 }

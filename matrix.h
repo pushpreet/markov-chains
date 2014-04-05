@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -31,7 +32,6 @@ public:
 	matrix ( int _rows, int _cols );
 	matrix ( vector<T> _mat );
 	matrix ( vector< vector<T> > _mat );
-	//matrix ( int _rows, int _cols, T values[] );
 	
 	// destructors
 	~matrix(void);
@@ -50,6 +50,7 @@ public:
 	// modifiers
 	matrix<T> addRow ( );
 	matrix<T> addCol ( );
+	matrix<T> assign ( int _rows, int _cols, T values[] );
 
 	// capacity
 	unsigned int numRows( );
